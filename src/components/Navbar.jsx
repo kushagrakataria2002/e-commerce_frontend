@@ -13,9 +13,8 @@ const Navbar = () => {
     const [is_disabled, setis_disabled] = useState(false); 
 
     const search_product_function = async () => {
+        setis_disabled(true); 
         try {
-
-            setis_disabled(true); 
 
             const { data } = await axios.get("https://e-commerce-backend-pii1.onrender.com/product/search", {
                 params: { query }
@@ -33,10 +32,14 @@ const Navbar = () => {
 
         } catch (error) {
             alert(`Product with "${query}" name is not found`);
+            setis_disabled(false); 
         }
     }
 
     const handel_key_down = async (event) => {
+
+        setis_disabled(true); 
+
         try {
 
             if (event.key === "Enter") {
@@ -53,6 +56,8 @@ const Navbar = () => {
 
                         setquery("");
 
+                        setis_disabled(false); 
+
                     }
 
                 } catch (error) {
@@ -60,6 +65,8 @@ const Navbar = () => {
                     alert(`Product with "${query}" name is not found`);
 
                     setquery("");
+
+                    setis_disabled(false); 
 
                 }
 

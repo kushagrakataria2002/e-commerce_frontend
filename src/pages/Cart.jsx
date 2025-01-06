@@ -8,7 +8,7 @@ const Cart = () => {
   const [user, setuser] = useState(false);
   const [loading, setloading] = useState(true);
   const [cart_item, setcart_item] = useState(false);
-  const [is_disabled, setis_disabled] = useState(false); 
+  const [is_disabled, setis_disabled] = useState(false);
 
   useEffect(() => {
 
@@ -51,7 +51,7 @@ const Cart = () => {
   const remove_product = async ({ id }) => {
     try {
 
-      setis_disabled(true); 
+      setis_disabled(true);
 
       const token = localStorage.getItem("token");
 
@@ -69,7 +69,7 @@ const Cart = () => {
 
         setloading(false);
 
-        setis_disabled(false); 
+        setis_disabled(false);
 
       }
 
@@ -124,7 +124,14 @@ const Cart = () => {
 
                     data.length === 0
                       ?
-                      <p>No items in your cart </p>
+                      <div className='w-full h-screen flex items-start justify-center mt-20'>
+
+                        <div className='flex justify-center items-center p-3'>
+
+                          <p className='font-bold'>Login to see your profile</p>
+
+                        </div>
+                      </div>
                       :
                       <>
                         <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 w-full h-screen mt-20">
@@ -184,7 +191,7 @@ const Cart = () => {
                                               <button
                                                 type="button"
                                                 disabled={is_disabled}
-                                                className={ is_disabled ?  "cursor-not-allowed opacity-50 inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500" : " inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"}
+                                                className={is_disabled ? "cursor-not-allowed opacity-50 inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500" : " inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500"}
                                                 onClick={(e) => { remove_product({ id: element._id }) }}
                                               >
                                                 Remove
