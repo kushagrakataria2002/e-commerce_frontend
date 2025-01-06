@@ -1,132 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { styled } from "styled-components";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-import { keyframes } from "styled-components";
 
-const Outer_box = styled.div`
-  margin-top:100px; 
-  display:flex; 
-  flex-direction:column; 
-  justify-content:space-between; 
-  padding:10px 10px 10px 10px; 
-  // border:1px solid red; 
-`;
-
-const Left_div = styled.div`
-  flex:1; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center;
-  // border:1px solid green;
-`;
-
-const Left_text = styled.p`
-  font-size:1.1rem; 
-  padding:10px 0px 10px 0px; 
-`;
-
-const Center_div = styled.div`
-  flex:1; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  // border:1px solid blue; 
-`;
-
-const Center_text = styled.p`
-  font-size:1.1rem; 
-  padding:10px 0px 10px 0px; 
-`;
-
-const Right_div = styled.div`
-  flex:1; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  // border:1px solid yellow; 
-`;
-
-const Right_text = styled.button`
-  font-size:1rem; 
-  padding:5px 10px 5px 10px;   
-  margin-top:10px; 
-`;
-
-const Random_text = styled.p`
-  text-align:center; 
-  font-size:1.1rem; 
-  margin-top:100px; 
-`;
-
-const Loader_container = styled.div`
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  height:100vh; 
-  // border:1px solid red; 
-`;
-
-const spin = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-`;
-
-const Loader = styled.div`
-  width:50px; 
-  height:50px;
-  border-radius:50%;  
-  animation: ${spin} 0.5s linear infinite; 
-  border:5px solid lightgrey; 
-  border-top:5px solid black; 
-`;
-
-const Dialouge_container = styled.div`
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-`;
-
-const Dialouge = styled.div`
-  width:50%; 
-  height:50vh; 
-  border-radius:10px; 
-  display:flex; 
-  flex-direction:column; 
-  justify-content:center; 
-  align-items:cnter; 
-  border:1px solid grey; 
-`;
-
-const Input_container = styled.div`
-  display:flex; 
-  flex-direction:column; 
-  justify-content:center; 
-  align-items:center; 
-`;
-
-const Input = styled.input`
-  border:1px solid grey; 
-  margin:10px 0px 10px 0px; 
-  padding:5px 10px 5px 10px; 
-  width:50%; 
-  font-size:1.1rem;  
-  border-radius:4px; 
-  outline:none; 
-`;
-
-const Button = styled.button`
-  font-size:1rem; 
-  padding:5px 10px 5px 10px;   
-  margin-top:10px; 
-`;
-
-const Button_container = styled.div`
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  gap:10px; 
-`;
 
 const Profile = () => {
 
@@ -191,7 +66,28 @@ const Profile = () => {
         loading
           ?
           <>
-            <Loader_container><Loader></Loader></Loader_container>
+            <div className="text-center w-full h-screen flex justify-center items-center">
+              <div role="status">
+                <svg
+                  aria-hidden="true"
+                  className="inline w-112 h-12 text-gray-200 animate-spin dark:text-gray-600 fill-gray-900"
+                  viewBox="0 0 100 101"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill"
+                  />
+                </svg>
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+
           </>
           :
           <>
@@ -199,63 +95,45 @@ const Profile = () => {
             {
               user
                 ?
-                <Outer_box>
+                <>
 
-                  {
-                    dialouge
-                      ?
-                      <>
+                  <div className='w-full h-screen mt-20'>
 
-                        <Dialouge_container>
+                    <div className='flex justify-center items-center p-3'>
 
-                          <Dialouge>
+                      <p className='font-bold'>Name: </p>
+                      <p>{data.username}</p>
 
-                            <Input_container>
+                    </div>
 
-                              <Input placeholder='Enter your New Username Here' />
-                              <Input placeholder='Enter your New Email Here' />
-                              <Input placeholder='Enter your New Password Here' />
+                    <div className='flex justify-center items-center p-3'>
 
-                              <Button_container>
+                      <p className='font-bold'>Email:</p>
+                      <p>{data.email}</p>
 
-                                <Button>Save Changes</Button>
-                                <Button onClick={() =>{setdialouge(false)}} >Close Dialouge</Button>
+                    </div>
 
-                              </Button_container>
+                    <div className='w-full flex justify-center items-center p-3 gap-3'>
 
-                            </Input_container>
+                      <button onClick={logout_user} className="w-[15%] bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+                        Logout
+                      </button>
 
-                          </Dialouge>
+                    </div>
 
-                        </Dialouge_container>
-                      </>
-                      :
-                      <>
-                        <Left_div>
+                  </div>
 
-                          <Left_text>User name : {data.username}</Left_text>
-
-                        </Left_div>
-
-                        <Center_div>
-
-                          <Center_text>Email : {data.email}</Center_text>
-
-                        </Center_div>
-
-                        <Right_div>
-
-                          <Right_text onClick={() =>{setdialouge(true)}} >Update Profile</Right_text>
-                          <Right_text style={{ marginLeft: "10px" }} onClick={logout_user} >Logout</Right_text>
-
-                        </Right_div>
-                      </>
-                  }
-
-                </Outer_box>
+                </>
                 :
                 <>
-                  <Random_text>{data}</Random_text>
+                  <div className='w-full h-screen flex items-start justify-center mt-20'>
+
+                    <div className='flex justify-center items-center p-3'>
+
+                      <p className='font-bold'>Login to see your profile</p>
+
+                    </div>
+                  </div>
                 </>
             }
 

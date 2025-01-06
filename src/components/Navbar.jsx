@@ -1,75 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { styled } from "styled-components";
 import { Link } from "react-router-dom";
-import Announcements from './Announcements.jsx';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Announcements from './Announcements.jsx';
 
-const Outer_div = styled.div`
-    // border:1px solid red; 
-    padding:10px 10px 10px 10px; 
-    display:flex; 
-    justify-content:space-between;
-`;
-
-const Left_div = styled.div`
-    flex:1; 
-    // border:1px solid green; 
-`;
-
-const Left_text = styled.p`
-    font-size:1.5rem; 
-`;
-
-const Center_div = styled.div`
-    flex:1; 
-    display:flex; 
-    justify-content:center; 
-`;
-
-const Center_text = styled.ul`
-    display:flex; 
-    justify-content:space-between; 
-    align-items:center; 
-    list-style:none; 
-`;
-
-const Li = styled.li`
-    padding:5px 10px; 
-    text-decoration:none; 
-    font-size:1.1rem; 
-`;
-
-const Right_div = styled.div`
-    flex:1; 
-    display:flex; 
-    justify-content:flex-end; 
-    align-items:center; 
-    // border:1px solid yellow; 
-`;
-
-const Right_text = styled.input`
-    outline:none; 
-    font-size:1.1rem; 
-    padding:5px 10px 5px 10px; 
-    border:1px solid grey; 
-    border-top-left-radius:5px; 
-    border-bottom-left-radius:5px; 
-`;
-
-const Right_button = styled.button`
-    font-size:1rem;  
-    padding:5px 10px 5px 10px; 
-`;
 
 const Navbar = () => {
 
     const navigate = useNavigate();
 
     const [query, setquery] = useState("");
+    const [is_disabled, setis_disabled] = useState(false); 
 
     const search_product_function = async () => {
         try {
+
+            setis_disabled(true); 
 
             const { data } = await axios.get("https://e-commerce-backend-pii1.onrender.com/product/search", {
                 params: { query }
@@ -80,12 +26,13 @@ const Navbar = () => {
                 navigate(`/product/${data.products[0]._id}`);
 
                 setquery("");
+
+                setis_disabled(false)
+
             }
 
-            console.log(data);
-
         } catch (error) {
-            alert(`Product with "${query}" name is not found`); 
+            alert(`Product with "${query}" name is not found`);
         }
     }
 
@@ -93,26 +40,27 @@ const Navbar = () => {
         try {
 
             if (event.key === "Enter") {
-                
+
                 try {
 
                     const { data } = await axios.get("https://e-commerce-backend-pii1.onrender.com/product/search", {
                         params: { query }
                     });
-        
+
                     if (data.success === true) {
-        
+
                         navigate(`/product/${data.products[0]._id}`);
-        
+
                         setquery("");
+
                     }
-        
-                    console.log(data);
-        
+
                 } catch (error) {
-                    
-                    alert(`Product with "${query}" name is not found`); 
-                    setquery(""); 
+
+                    alert(`Product with "${query}" name is not found`);
+
+                    setquery("");
+
                 }
 
             }
@@ -124,39 +72,51 @@ const Navbar = () => {
 
     return (
         <>
-
             <Announcements />
 
-            <Outer_div>
+            <header className="text-gray-600 body-font">
 
-                <Left_div>
+                <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center justify-center">
 
-                    <Left_text>E-Shop</Left_text>
+                    <Link className="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0 flex-1 justify-start">
+                        <span className="ml-3 text-xl">E-Shop</span>
+                    </Link>
 
-                </Left_div>
+                    <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center flex-1">
 
-                <Center_div>
+                        <Link to={"/"} className='text-black mr-5 hover:text-gray-700 transition' >Home</Link>
+                        <Link to={"/profile"} className='text-black mr-5 hover:text-gray-700 transition'>Profile</Link>
+                        <Link to={"/cart"} className='text-black mr-5 hover:text-gray-700 transition'>Cart</Link>
+                        <Link to={"/login"} className='text-black mr-5 hover:text-gray-700 transition'>Login</Link>
+                        <Link to={"/register"} className='text-black mr-5 hover:text-gray-700 transition'>Register</Link>
 
-                    <Center_text>
+                    </nav>
 
-                        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/"}><Li>Home</Li></Link>
-                        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/profile"}><Li>Profile</Li></Link>
-                        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/cart"}><Li>Cart</Li></Link>
-                        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/login"}><Li>Login</Li></Link>
-                        <Link style={{ textDecoration: "none", color: "inherit" }} to={"/register"}><Li>Register</Li></Link>
+                    <div className="relative flex items-center justify-end gap-2 flex-1 ">
 
-                    </Center_text>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            className={ is_disabled ?  " opacity-50 cursor-not-allowed py-1 w-70% bg-white rounded border border-gray-300 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out border-gray-500" : "py-1 w-70% bg-white rounded border border-gray-300 text-base outline-none text-gray-700 px-3 leading-8 transition-colors duration-200 ease-in-out border-gray-500"}
+                            disabled={is_disabled}
+                            placeholder='Search Products'
+                            value={query}
+                            onChange={(e) => { setquery(e.target.value) }}
+                            onKeyDown={handel_key_down}
+                        />
 
-                </Center_div>
 
-                <Right_div>
+                        <button onClick={search_product_function} disabled={is_disabled} className={is_disabled ? "cursor-not-allowed opacity-50 w-[15%] bg-gray-900 dark:bg-gray-600 text-white py-2 rounded-md text-center font-bold hover:bg-gray-800 dark:hover:bg-gray-700": "w-[15%] bg-gray-900 dark:bg-gray-600 text-white py-2 rounded-md text-center font-bold hover:bg-gray-800 dark:hover:bg-gray-700"}>
+                            Search
+                        </button>
 
-                    <Right_text placeholder='Search Product' value={query} onChange={(e) => { setquery(e.target.value) }} onKeyDown={handel_key_down} />
-                    <Right_button onClick={search_product_function}>Search</Right_button>
+                    </div>
 
-                </Right_div>
+                </div>
 
-            </Outer_div>
+            </header>
+
 
             <hr />
 
