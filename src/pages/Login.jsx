@@ -87,7 +87,7 @@ const Login = () => {
           </>
           :
           <>
-            <section className="bg-gray-50 dark:bg-gray-900">
+            <section className="bg-gray-50 dark:bg-gray-900 mt-5">
               <div className="flex flex-col items-center justify-center px-6 mx-auto md:h-screen lg:py-0">
 
                 <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -144,12 +144,11 @@ const Login = () => {
 
                       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                         Don’t have an account yet?{" "}
-                        <a
-                          href="#"
+                        <Link to={"/register"}
                           className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                         >
                           Register
-                        </a>
+                        </Link>
                       </p>
 
                     </form>

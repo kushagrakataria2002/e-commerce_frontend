@@ -115,7 +115,7 @@ const Profile = () => {
 
                     <div className='w-full flex justify-center items-center p-3 gap-3'>
 
-                      <button onClick={logout_user} className="w-[15%] bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
+                      <button onClick={logout_user} className="md:w-[15%] w-[75%] bg-gray-900 dark:bg-gray-600 text-white py-2 px-4 rounded-full font-bold hover:bg-gray-800 dark:hover:bg-gray-700">
                         Logout
                       </button>
 

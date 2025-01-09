@@ -7,7 +7,6 @@ import Navbar from './components/Navbar.jsx';
 import Profile from "./pages/Profile.jsx"; 
 import Cart from "./pages/Cart.jsx"; 
 import Single from "./pages/Single.jsx"; 
-import Footer from "./components/Footer.jsx"; 
 
 const App = () => {
 
@@ -29,8 +28,6 @@ const App = () => {
           <Route path='/product/:id' element={<Single/>} />
 
     </Routes>
-
-    <Footer/>
 
     </Router>
     </>

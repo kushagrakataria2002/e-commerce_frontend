@@ -128,13 +128,13 @@ const Cart = () => {
 
                         <div className='flex justify-center items-center p-3'>
 
-                          <p className='font-bold'>Login to see your profile</p>
+                          <p className='font-bold'>No items in your cart</p>
 
                         </div>
                       </div>
                       :
                       <>
-                        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 w-full h-screen mt-20">
+                        <section className="bg-white py-8 antialiased dark:bg-gray-900 md:py-16 w-full h-screen">
                           <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
 
                             <div className="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
@@ -146,7 +146,7 @@ const Cart = () => {
                                   {
                                     data.map((element, index, array) => (
 
-                                      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                      <div className="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
 
                                         <div className="space-y-4 md:flex md:items-center md:justify-evenly md:gap-6 md:space-y-0">
 
@@ -163,7 +163,6 @@ const Cart = () => {
                                               alt="imac image"
                                             />
                                           </Link>
-
 
                                           <div className="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
 

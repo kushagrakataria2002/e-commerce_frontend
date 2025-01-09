@@ -115,7 +115,7 @@ const Single = () => {
 
                     <div className="h-[460px] flex justify-center items-center rounded-lg mb-4">
                       <img
-                        className="w-1/2"
+                        className="md:w-1/2 w-4/5"
                         src={data.product.image[0].url}
                         alt="Product Image"
                       />
