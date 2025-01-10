@@ -1,63 +1,56 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from "react-router-dom"; 
 
 
 const Profile = () => {
 
-  const [data, setdata] = useState("");
-  const [user, setuser] = useState(false);
+  const [data, setdata] = useState({});
+  const [is_user_loggedin, setis_user_loggedin] = useState(false);
   const [loading, setloading] = useState(true);
-  const [dialouge, setdialouge] = useState(false);
 
-  const navigate = useNavigate();
+  const navigate = useNavigate(); 
 
   useEffect(() => {
 
     const fetch_user_data = async () => {
+
       try {
+        
+        const {data} = await axios.get("https://e-commerce-backend-pii1.onrender.com/user/profile",{withCredentials: true}); 
 
-        const token = localStorage.getItem("token");
-
-        if (token && token.trim() !== "") {
-
-          const { data } = await axios.get("https://e-commerce-backend-pii1.onrender.com/user/profile", {
-            headers: {
-              token: `Bearer ${token}`,
-              "Content-Type": "application/json"
-            }
-          });
-
-          setdata(data.user);
-          setloading(false);
-          setuser(true);
-
-          console.log(data);
-
-        } else {
-
-          setdata("Please Login to see your profile");
-          setloading(false);
-          setuser(false);
-
-        }
+        setdata(data); 
+        setis_user_loggedin(true); 
+        setloading(false); 
 
       } catch (error) {
 
-        console.log(error);
+        setloading(false); 
+        setis_user_loggedin(false); 
 
       }
+
     }
 
     fetch_user_data();
 
   }, []);
 
-  const logout_user = () => {
-    localStorage.removeItem("token");
-    navigate("/");
-    setloading(false);
+  const logout_user = async() => {
 
+    try {
+     
+      await axios.post("https://e-commerce-backend-pii1.onrender.com/user/logout",{},{withCredentials:true}); 
+
+      localStorage.removeItem("token"); 
+
+      navigate("/"); 
+
+    } catch (error) {
+      
+      console.log(error); 
+      
+    }
   }
 
   return (
@@ -93,7 +86,7 @@ const Profile = () => {
           <>
 
             {
-              user
+              is_user_loggedin
                 ?
                 <>
 

@@ -39,14 +39,15 @@ const Login = () => {
 
     try {
 
-      const response = await axios.post("https://e-commerce-backend-pii1.onrender.com/user/login", { email, password });
-
-      console.log(response);
+      const response = await axios.post("https://e-commerce-backend-pii1.onrender.com/user/login", { email, password }, {withCredentials:true});
 
       if (response.data.success === true) {
         alert(response.data.message);
+
         localStorage.setItem("token", response.data.token);
+
         navigate("/");
+
         setis_disabled(false); 
       }
 
@@ -54,8 +55,11 @@ const Login = () => {
 
       if (error.response.data.success === false) {
         alert(error.response.data.message);
+
         setemail("");
+
         setpassword("");
+        
         setis_disabled(false); 
       }
 

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Cart = () => {
 
   const [data, setdata] = useState();
-  const [user, setuser] = useState(false);
+  const [is_user_loggedin, setis_user_loggedin] = useState(false);
   const [loading, setloading] = useState(true);
   const [cart_item, setcart_item] = useState(false);
   const [is_disabled, setis_disabled] = useState(false);
@@ -14,34 +14,33 @@ const Cart = () => {
 
     const fetch_cart_data = async () => {
 
+      setloading(true); 
+
       try {
 
-        const token = localStorage.getItem("token");
+        const response = await axios.get("https://e-commerce-backend-pii1.onrender.com/cart/all",{withCredentials:true}); 
 
-        if (token && token.trim !== "") {
+        setdata(response.data.products); 
 
-          const response = await axios.get("https://e-commerce-backend-pii1.onrender.com/cart/all", {
-            headers: {
-              token: `Bearer ${token}`,
-              "Content-Type": "application/json"
-            }
-          });
+        setis_user_loggedin(true); 
 
-          setdata(response.data.products);
-          setloading(false);
-          setuser(true);
-          console.log(data);
-        }
-
-        else {
-          setdata("Please Login to see your cart items");
-          setloading(false);
-          setuser(false);
-        }
-
+        setloading(false); 
+        
       } catch (error) {
-        setuser(false);
+        
+        if(error.response){
+          setis_user_loggedin(false); 
+          setloading(false); 
+        }
+
+        else{
+          alert("internal server error"); 
+          setis_user_loggedin(false); 
+          setloading(false); 
+        }
+
       }
+
     }
 
     fetch_cart_data();
@@ -49,35 +48,22 @@ const Cart = () => {
   }, [cart_item]);
 
   const remove_product = async ({ id }) => {
+    
+    setis_disabled(true); 
+    setloading(true); 
+
     try {
+      
+      await axios.delete(`https://e-commerce-backend-pii1.onrender.com/cart/delete/${id}`, {withCredentials:true}); 
 
-      setis_disabled(true);
-
-      const token = localStorage.getItem("token");
-
-      if (token && token.trim() !== "") {
-
-        setloading(true);
-
-        const response = await axios.delete(`https://e-commerce-backend-pii1.onrender.com/cart/delete/${id}`, {
-          headers: {
-            token: `Bearer ${token}`
-          }
-        });
-
-        setcart_item(!cart_item);
-
-        setloading(false);
-
-        setis_disabled(false);
-
-      }
+      setis_disabled(false); 
+      setcart_item(!cart_item); 
+      setloading(false); 
 
     } catch (error) {
-
-      console.log(error);
-
+      console.log(error); 
     }
+
   }
 
   return (
@@ -116,7 +102,7 @@ const Cart = () => {
           <>
 
             {
-              user
+              is_user_loggedin
                 ?
                 <>
 
@@ -146,7 +132,7 @@ const Cart = () => {
                                   {
                                     data.map((element, index, array) => (
 
-                                      <div className="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                                      <div key={index} className="rounded-lg border border-gray-300 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
 
                                         <div className="space-y-4 md:flex md:items-center md:justify-evenly md:gap-6 md:space-y-0">
 

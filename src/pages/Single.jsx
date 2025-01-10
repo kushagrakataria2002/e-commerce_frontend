@@ -37,40 +37,30 @@ const Single = () => {
   const add_to_cart = async () => {
 
     setis_disabled(true); 
+
     try {
+      
+      const response = await axios.post(`https://e-commerce-backend-pii1.onrender.com/cart/add/${param.id}`,{},{withCredentials:true}); 
 
-      const token = localStorage.getItem("token");
-
-      if (token && token.trim() !== "") {
-
-        const response = await axios.post(`https://e-commerce-backend-pii1.onrender.com/cart/add/${param.id}`, {}, {
-          headers: {
-            token: `Bearer ${token}`,
-            "Content-Type": "application/json"
-          }
-        });
-
-        console.log(response);
-
-        if (response.data.success === true) {
-          alert(response.data.message);
-          setis_disabled(false); 
-        }
-
-      }
-
-      else {
-
-        alert("Login to add product to cart");
+      if(response.data.success === true){
+        alert(response.data.message); 
         setis_disabled(false); 
-
       }
 
     } catch (error) {
+      
+      if(error.response){
+        alert(error.response.data.message); 
+        setis_disabled(false); 
+      }
 
-      console.log(error);
+      else{
+        alert("Internal server error");
+        setis_disabled(false); 
+      }
 
     }
+
   }
 
   return (
@@ -169,10 +159,10 @@ const Single = () => {
                           {
                             description.map((element, index, array) =>(
 
-                              <>
-                              <li className='text-sm' >{element}</li>
+                              <div key={index}>
+                              <li className='text-sm' >{element} </li>
                               <br />
-                              </>
+                              </div>
                             ))
                           }
 

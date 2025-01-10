@@ -17,11 +17,7 @@ const Home = () => {
         setdata(data.products);
         setloading(false);
 
-        console.log(data.products);
-        console.log(data.products.image.url);
-
       } catch (error) {
-        console.log(error);
         setloading(false);
       }
     }
@@ -72,36 +68,32 @@ const Home = () => {
                   {
                     data.map((element, index, array) => (
 
-                      <Link to={`/product/${element._id}`}>
+                      <Link to={`/product/${element._id}`} key={index}>
 
                         <div className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">
 
                           {/* image  */}
 
                           <div className="h-36 w-full">
-                            <Link to={`/product/${element._id}`}>
-                              <img
-                                className="mx-auto h-full dark:hidden"
-                                src={element.image[0].url}
-                                alt=""
-                              />
-                              <img
-                                className="mx-auto hidden h-full dark:block"
-                                src={element.image[0].url}
-                                alt=""
-                              />
-                            </Link>
+                            <img
+                              className="mx-auto h-full dark:hidden"
+                              src={element.image[0].url}
+                              alt=""
+                            />
+                            <img
+                              className="mx-auto hidden h-full dark:block"
+                              src={element.image[0].url}
+                              alt=""
+                            />
                           </div>
 
                           <div className="pt-6">
 
                             {/* name  */}
 
-                            <Link to={`/product/${element._id}`}
-                              className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white"
-                            >
+                            <div className="text-lg font-semibold leading-tight text-gray-900 hover:underline dark:text-white">
                               {element.name}
-                            </Link>
+                            </div>
 
                             {/* Ratings   */}
 
