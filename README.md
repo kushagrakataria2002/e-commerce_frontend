@@ -5,7 +5,6 @@
 
 - If you want to run the project in your system. Use the following commands to clone repository **1) Copy HTTPS link of repository 2) Open your terminal and run command "git clone <repository link>" 3) run command "npm install" to install the required dependencies**
 
-<h3 align="left">Connect with me:</h3>
 <p align="left">
 </p>
 
